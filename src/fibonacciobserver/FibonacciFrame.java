@@ -7,13 +7,13 @@ import javax.swing.SwingUtilities;
 
 public class FibonacciFrame extends javax.swing.JFrame implements FibonacciObserver {
 
-  private long fib(long n) {
-    if ((n == 0) || (n == 1)) {
-      return n;
-    } else {
-      return fib(n - 1) + fib(n - 2);
-    }
-  }
+//  private long fib(long n) {
+//    if ((n == 0) || (n == 1)) {
+//      return n;
+//    } else {
+//      return fib(n - 1) + fib(n - 2);
+//    }
+//  }
 
   public void startWaitCursor() {
     RootPaneContainer root = (RootPaneContainer) this.getRootPane().getTopLevelAncestor();
@@ -99,14 +99,15 @@ public class FibonacciFrame extends javax.swing.JFrame implements FibonacciObser
       long no = Long.parseLong(jTextField1.getText());
       jTextField5.setText("");
       startWaitCursor();
-      jTextField5.setText("" + fib(no));
-      stopWaitCursor();
+      FibonacciTask task = new FibonacciTask(no);
+      task.registerFibonacciObserver(this);
+      task.start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     
   @Override
   public void dataReady(long tal) {
-    System.out.println("XXX: " + tal);
+//    System.out.println("XXX: " + tal);
     stopWaitCursor();
     jTextField5.setText(tal + "");  //Make tHis Thread Safe
   }
